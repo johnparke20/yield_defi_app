@@ -75,6 +75,7 @@ class App extends Component {
     this.setState({ loading: true })
     this.state.daiToken.methods.approve(this.state.tokenFarm._address, amount).send({ from: this.state.account }).on('transactionHash', (hash) => {
       this.state.tokenFarm.methods.stakeTokens(amount).send({ from: this.state.account }).on('transactionHash', (hash) => {
+        this.loadBlockchainData()
         this.setState({ loading: false })
       })
     })
@@ -83,6 +84,7 @@ class App extends Component {
   unstakeTokens = (amount) => {
     this.setState({ loading: true })
     this.state.tokenFarm.methods.unstakeTokens().send({ from: this.state.account }).on('transactionHash', (hash) => {
+      this.loadBlockchainData()
       this.setState({ loading: false })
     })
   }
